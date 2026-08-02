@@ -3,9 +3,9 @@ Projeto de Somador de Ponto Flutuante em FPGA proposto na disciplina de Sistemas
 
 # Tutorial: Implementação de Somador Ponto Flutuante na DE10-Lite
 
-**Autores:** [Nome do Aluno 1], [Nome do Aluno 2], , [Nome do Aluno 3]
+**Autores:** Guilherme Carvalho Torres, João Paulo Vieira de Carvalho, João Pedro Kayano Leal
 
-**Disciplina:** Sistemas Digitais Q2.20026
+**Disciplina:** Sistemas Digitais Q2.2026
 
 **Data:** [Data da entrega]
 
