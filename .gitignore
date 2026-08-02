@@ -1,0 +1,4 @@
+# Arquivos gerados pelo GHDL
+work-obj*.cf
+*.ghw
+*.vcd
