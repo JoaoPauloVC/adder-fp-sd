@@ -154,7 +154,7 @@ Após isso, o programa irá abrir. Selecione na área superior esquerda o SST te
 ![GtkWave Signals](images/01-gtkwave-signals.png)
 
 
-Dentro, selecionei os sinais que quer ver (todos os do TestBench, neste primeiro momento).
+Dentro, selecione os sinais que quer ver (todos os do TestBench, neste primeiro momento).
 
 ![GtkWave Signals Selected](images/02-gtkwave-signals-selected.png)
 
@@ -172,20 +172,31 @@ Vamos agora analisar os sinais vindo do fp_adder. Para isto, selecione os outros
 
 Os sinais analisados serão:
 
-expb        -> maior expoente
-exps        -> menor expoente
-exp_diff    -> diferença do expoente
+- expb        -> maior expoente
 
-fracb       -> maior fração
-fracs       -> menor fração
-fraca       -> fração menor após alinhamento
+- exps        -> menor expoente
 
-sum         -> resultado de 9 bits. Bit adicional para armazenar o carry, se necessário
+- exp_diff    -> diferença do expoente
 
-leado       -> nºs de deslocamentos para a esquerda necessários
-sum_norm    -> fração pós-deslocamento
-expn        -> expoente normalizado
-fracn       -> fração noramlizada
+
+- fracb       -> maior fração
+
+- fracs       -> menor fração
+
+- fraca       -> fração menor após alinhamento
+
+
+- sum         -> resultado de 9 bits. Bit adicional para armazenar o carry, se necessário
+
+
+- leado       -> nºs de deslocamentos para a esquerda necessários
+
+- sum_norm    -> fração pós-deslocamento
+
+- expn        -> expoente normalizado
+
+- fracn       -> fração noramlizada
+
 
 Analisando a imagem abaixo, verificamos que expn e fracn condizem com o esperado do testbench.
 
