@@ -111,7 +111,26 @@ begin
 
       wait for 200 ns;
       
-      -- Marca o fim do quarto caso, no instante de 800 ns
+      -------------------------------------------------------------
+      -- Vetor de teste 5
+      -- +0.10000000 * 2^2 - 0.10000000 * 2^3
+      --
+      -- O segundo operando possui maior magnitude.
+      --
+      -- Resultado esperado:
+      -- sinal = 1, expoente = 0010, fracao = 10000000
+      -------------------------------------------------------------
+      test_sign1 <= '0';
+      test_exp1  <= "0010";
+      test_frac1 <= "10000000";
+
+      test_sign2 <= '1';
+      test_exp2  <= "0011";
+      test_frac2 <= "10000000";
+
+      wait for 200 ns;
+
+      -- Marca o fim do quinto caso, no instante de 1000 ns
       test_end <= '1';
 
       wait;

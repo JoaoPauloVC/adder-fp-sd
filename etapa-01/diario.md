@@ -115,7 +115,7 @@ fração = 00000000
 
 0.10000000₂ × 2³ + 0.10000000₂ × 2³
 
-Em decimal, temos 8 + 8 = 16
+Em decimal, temos 4 + 4 = 8
 
   0.10000000 × 2³
 + 0.10000000 × 2³
@@ -143,6 +143,7 @@ OBS: Dentro da pasta "codigo" (etapa-01/codigo), rodar no terminal:
     ```bash
         ghdl -a fp_adder_tratado.vhd
         ghdl -a fp_adder_tratado_testbench.vhd
+        ghdl -e fp_adder_tratado_testbench
         ghdl -r fp_adder_tratado_testbench --vcd=resposta.vcd
         gtkwave resposta.vcd
     ```
@@ -150,15 +151,15 @@ OBS: Dentro da pasta "codigo" (etapa-01/codigo), rodar no terminal:
 ### Análise inicial (Sinais de onda do TestBench)
 Após isso, o programa irá abrir. Selecione na área superior esquerda o SST testbench.
 
-![GtkWave Signals](gtkwave-signals.png)
+![GtkWave Signals](etapa-01\images\01-gtkwave-signals.png)
 
 Dentro, selecionei os sinais que quer ver (todos os do TestBench, neste primeiro momento).
 
-![GtkWave Signals Selected](gtkwave-signals-selected.png)
+![GtkWave Signals Selected](etapa-01\images\02-gtkwave-signals-selected.png)
 
 Dê zoom Fit para exibir todo o intervalo (Opção na barra superior) e altere o Data Format para Binary, para substituir tudo para binário. Fica como na imagem abaixo.
 
-![GtkWave Signals Formatted](gtkwave-signal-formatted.png)
+![GtkWave Signals Formatted](etapa-01\images\03-gtkwave-signal-formatted.png)
 
 ### Conclusão Inicial
 
@@ -168,5 +169,69 @@ Pelas imagens, vemos que as saídas batem com o esperado, considerando critério
 
 Vamos agora analisar os sinais vindo do fp_adder. Para isto, selecione os outros sinais, dentro do uut.
 
+Os sinais analisados serão:
 
+expb        -> maior expoente
+exps        -> menor expoente
+exp_diff    -> diferença do expoente
 
+fracb       -> maior fração
+fracs       -> menor fração
+fraca       -> fração menor após alinhamento
+
+sum         -> resultado de 9 bits. Bit adicional para armazenar o carry, se necessário
+
+leado       -> nºs de deslocamentos para a esquerda necessários
+sum_norm    -> fração pós-deslocamento
+expn        -> expoente normalizado
+fracn       -> fração noramlizada
+
+Analisando a imagem abaixo, verificamos que expn e fracn condizem com o esperado do testbench.
+
+![GtkWave Signals fp_adder](04-gtkwave-signals-fp-adder.png)
+
+### Conclusão
+
+Comparando os sinais de TestBench com os sinais do fp_adder, concluímos que, para os casos de teste analisados, o algoritmo produziu os resultados esperados e realizou corretamente os deslocamentos observados no quarto estágio.
+
+## Análise de um quinto caso
+
+Percebemos que não analisamos um caso em que a segunda entrada é o número de maior magnitude. Devido a isto, vamos fazer um quinto caso de teste, a seguir.
+
+### Caso 5 - Segunda entrada com maior magnitude
+
+0.10000000 × 2^3 - 0.10000000 × 2^3
+
+Em decimal, temos 2 - 4 = -2
+
+O segundo número possui maior magnitude. Por isso, o expoente usado para o alinhamento será 3.
+
+O primeiro número deve ser representado com esse mesmo expoente:
+
+Logo, temos
+
+0.01000000 × 2^3 - 0.10000000 × 2^3
+
+Como o segundo número é maior que o primeiro, fazemos a diferença em módulo e preservamos o sinal do número de maior valor
+
+  0.10000000 × 2^3
+- 0.01000000 × 2^3
+------------------
+  0.01000000 x 2^3
+
+Lembrando de adicionar o sinal, temos -0.01000000 x 2^3. Com a normalização, temos -0.10000000 x 2^2.
+
+#### Sinal Negativo
+sinal = 1
+
+#### Expoente (2)_10
+expoente = 0010
+
+#### Fração (Número em binário de 8 bits)
+fração = 10000000
+
+![GtkWave Second Number Bigger](05-gtkwave-signal-second-bigger.png)
+
+## Conclusão
+
+Agora com este último caso tendo sido atentido como esperado, continuamos com a conclusão de que, para os casos de teste analisados, o algoritmo produziu os resultados esperados e realizou corretamente os deslocamentos observados no quarto estágio.
