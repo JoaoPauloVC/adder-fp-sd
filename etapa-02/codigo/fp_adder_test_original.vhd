@@ -20,11 +20,13 @@ architecture arch of fp_adder_test is --
     signal exp_out : std_logic_vector (3 downto 0) ; --
     signal frac_out : std_logic_vector (7 downto 0) ; --
     signal led3 , led2 , led1 , led0 : std_logic_vector (7 downto 0) ; --
+
 begin --
     -- set up the fp adder input signals --
-    sign1 <= '0'; --
-    exp1 <= "1000"; --
-    frac1 <= '1' & sw (1) & sw (0) & "10101"; --
+    sign1 <= '0';
+    exp1 <= "1000";
+    frac1 <= '1' & sw(1) & sw(0) & "10101";     
+
     sign2 <= sw (7) ; --
     exp2 <= btn ; --
     frac2 <= '1' & sw (6 downto 0) ; --
