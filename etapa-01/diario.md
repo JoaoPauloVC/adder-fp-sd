@@ -11,7 +11,7 @@ Análise e correção do código VHDL disponibilizado no PDF. Foram corrigidos d
 
 Da mesma forma que números decimais, onde números à esquerda representam potências de 10 (ex: 123 = 1x10^2 + 2x10^1 + 3x10^0), os binários que tem números à esquerda podem ser convertidos em decimais usando este esquema de potência, ou seja:
 
-1001 = 1x2^3 0x2^2 + 0x2^1 + 1x2^0 = 9
+1001 = 1x2^3 + 0x2^2 + 0x2^1 + 1x2^0 = 9
 
 Números à direita (números com vírgula), se comportam da mesma forma, ou seja:
 
@@ -20,7 +20,7 @@ Binário: 0.101 = 1x2^-1 + 0x2^-2 + 1x2^-3
 
 ## Testbench para teste
 
-Teremos 4 casos de teste, que terão os objetivos explicados abaixo.
+Teremos 5 casos de teste, que terão os objetivos explicados abaixo.
 
 ### Caso 1 - Alinhamento de Expoentes
 
@@ -122,7 +122,7 @@ Em decimal, temos 4 + 4 = 8
 --------------
   1.00000000 × 2³
 
-Lembrando, o número sempre inicia em 0,1, ou seja, precisamos fazer um carry, aumentanto a potência em 1, e "andando" com a vírgula para a esquerda. Assim, teremos
+Lembrando, o número sempre inicia em 0,1, ou seja, precisamos fazer um carry, aumentando a potência em 1, e "andando" com a vírgula para a esquerda. Assim, teremos
 
 0.10000000 x 2^4
 
@@ -195,7 +195,7 @@ Os sinais analisados serão:
 
 - expn        -> expoente normalizado
 
-- fracn       -> fração noramlizada
+- fracn       -> fração normalizada
 
 
 Analisando a imagem abaixo, verificamos que expn e fracn condizem com o esperado do testbench.
@@ -212,7 +212,7 @@ Percebemos que não analisamos um caso em que a segunda entrada é o número de 
 
 ### Caso 5 - Segunda entrada com maior magnitude
 
-0.10000000 × 2^3 - 0.10000000 × 2^3
+0.10000000 × 2^2 - 0.10000000 × 2^3
 
 Em decimal, temos 2 - 4 = -2
 
@@ -246,4 +246,4 @@ fração = 10000000
 
 ## Conclusão
 
-Agora com este último caso tendo sido atentido como esperado, continuamos com a conclusão de que, para os casos de teste analisados, o algoritmo produziu os resultados esperados e realizou corretamente os deslocamentos observados no quarto estágio.
+Agora com este último caso tendo sido atendido como esperado, continuamos com a conclusão de que, para os casos de teste analisados, o algoritmo produziu os resultados esperados e realizou corretamente os deslocamentos observados no quarto estágio.
