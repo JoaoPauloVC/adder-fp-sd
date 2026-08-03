@@ -151,15 +151,15 @@ OBS: Dentro da pasta "codigo" (etapa-01/codigo), rodar no terminal:
 ### Análise inicial (Sinais de onda do TestBench)
 Após isso, o programa irá abrir. Selecione na área superior esquerda o SST testbench.
 
-![GtkWave Signals](etapa-01\images\01-gtkwave-signals.png)
+![GtkWave Signals](images\01-gtkwave-signals.png)
 
 Dentro, selecionei os sinais que quer ver (todos os do TestBench, neste primeiro momento).
 
-![GtkWave Signals Selected](etapa-01\images\02-gtkwave-signals-selected.png)
+![GtkWave Signals Selected](images\02-gtkwave-signals-selected.png)
 
 Dê zoom Fit para exibir todo o intervalo (Opção na barra superior) e altere o Data Format para Binary, para substituir tudo para binário. Fica como na imagem abaixo.
 
-![GtkWave Signals Formatted](etapa-01\images\03-gtkwave-signal-formatted.png)
+![GtkWave Signals Formatted](images\03-gtkwave-signal-formatted.png)
 
 ### Conclusão Inicial
 
@@ -188,7 +188,7 @@ fracn       -> fração noramlizada
 
 Analisando a imagem abaixo, verificamos que expn e fracn condizem com o esperado do testbench.
 
-![GtkWave Signals fp_adder](04-gtkwave-signals-fp-adder.png)
+![GtkWave Signals fp_adder](images\04-gtkwave-signals-fp-adder.png)
 
 ### Conclusão
 
@@ -230,7 +230,7 @@ expoente = 0010
 #### Fração (Número em binário de 8 bits)
 fração = 10000000
 
-![GtkWave Second Number Bigger](05-gtkwave-signal-second-bigger.png)
+![GtkWave Second Number Bigger](images\05-gtkwave-signal-second-bigger.png)
 
 ## Conclusão
 
