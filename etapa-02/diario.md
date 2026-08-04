@@ -57,14 +57,14 @@ A imagem, retirada do material ministrado em aula, foi utilizada para montarmos 
 
 No circuito original, os quatro displays compartilhavam o barramento `sseg`. O sinal `an` selecionava qual display estava ativo em cada instante, enquanto o componente `disp_mux` utilizava o clock para alternar rapidamente entre os displays.
 
-Na DE10-Lite, cada display possui sua própria saída, identificada como HEX5, HEX4, HEX3, HEX2, HEX1, HEX0. Destas estamos usando somente HEX3, HEX2, HEX1, HEX0 Dessa forma, não é necessário selecionar e alternar os displays, permitindo a remoção de `clk`, `an`, `sseg` e `disp_mux`.
+Na DE10-Lite, cada display possui sua própria saída, identificada como HEX5, HEX4, HEX3, HEX2, HEX1, HEX0. Destas, estamos usando somente HEX3, HEX2, HEX1, HEX0. Dessa forma, não é necessário selecionar e alternar os displays, permitindo a remoção de `clk`, `an`, `sseg` e `disp_mux`.
 
 Para este projeto, os quatro displays utilizados representam as seguintes partes dos operandos:
 
-- HEX0: expoente do resultado;
-- HEX1: quatro bits menos significativos da fração;
-- HEX2: quatro bits mais significativos da fração;
 - HEX3: sinal do resultado.
+- HEX2: quatro bits mais significativos da fração;
+- HEX1: quatro bits menos significativos da fração;
+- HEX0: expoente do resultado;
 
 Os valores de quatro bits apresentados em HEX2, HEX1 e HEX0 passam por instâncias do componente `hex_to_7seg_de10_lite`, que converte cada valor hexadecimal no padrão correspondente dos sete segmentos.
 
@@ -100,25 +100,25 @@ Vemos que todos os arquivos compilaram sem erros, então agora faremos um arquiv
 
 Para o teste bench, buscamos trazer 4 casos de teste abordando  as questões de:
 
-### Alinhamento dos operandos (Caso de Teste 1)
+### Caso de Teste 1 - Alinhamento dos operandos
 
 ![Alinhamento dos operandos](images/caso-teste-1.jpeg)
 
 
-### Soma com Carry (Caso de Teste 2)
+### Caso de Teste 2 - Soma com Carry
 
 ![Soma com Carry out](images/caso-teste-2.jpeg)
 
 
-### Operando 2 negativo e maior em magnitude (valor maior em absoluto)
+### Caso de Teste 3 - Operando 2 negativo e maior em magnitude (valor maior em absoluto)
 
 ![Operando 2 negativo e maior magnitude](images/caso-teste-3.jpeg)
 
-### Grande deslocamento na normalização
+### Caso de Teste 4 - Grande deslocamento na normalização
 
 ![Grande deslocamento na normalização](images/caso-teste-4.jpeg)
 
-Nas imagens (e no testebench, que é o arquivo fp_adder_test_de10_lite_testbench.vhd) podemos visualizar o resultado final esperando
+Nas imagens (e no testebench, que é o arquivo fp_adder_test_de10_lite_testbench.vhd) podemos visualizar o resultado final esperado.
 
 ## Visualização no GTKWave
 
@@ -158,3 +158,6 @@ Embora os padrões apresentados nos displays já mostrem que os resultados finai
 ![Análise Sinais FP Adder](images/analise-sinais-fp-adder.png)
 
 Se compararmos os sinais de sign_out, expn e fracn com as imagens dos Casos de Teste, vemos que sign_out = sign, expn = exp e fracn = result, como esperado, o que traz mais garantia de que o circuito adaptado produz os resultados corretos.
+
+
+Dessa forma, concluímos que, para os casos simulados, a adaptação para a interface da DE10-Lite preservou o funcionamento do somador. A validação na placa física será realizada na Etapa 03.
