@@ -10,10 +10,11 @@ entity fp_adder_test_de10_lite is --
         -- clk : in std_logic ;
         -- Selecionava qual display mostrar no momento (não necessário na DE10-Lite).
         -- an : out std_logic_vector (3 downto 0) ;
-        -- Determinava quais segmentos acender. Não necessário na DE10-Lite (saídas independentes)
+        -- Determinava quais segmentos acender no display selecionado por an.
+        -- Na DE10-Lite, esse barramento compartilhado é substituído pelas saídas individuais HEX0 a HEX3.
         -- sseg : out std_logic_vector (7 downto 0)
         ---------------------------------------------------------------------------------------------
-        
+
         -- Dez switches físicos da DE10-Lite
         SW : in std_logic_vector(9 downto 0);
         -- sw : in std_logic_vector (7 downto 0);
@@ -22,7 +23,7 @@ entity fp_adder_test_de10_lite is --
         KEY : in std_logic_vector(1 downto 0);
         -- btn : in std_logic_vector (3 downto 0) ;
 
-        -- Quatro displays usados para mostrar o resultado ()
+        -- Quatro displays usados para mostrar o resultado
         HEX3 : out std_logic_vector(0 to 6); -- sinal (1 bit)
         HEX2 : out std_logic_vector(0 to 6); -- 4 bits mais significativos
         HEX1 : out std_logic_vector(0 to 6); -- 4 bits menos significativos
@@ -39,15 +40,50 @@ architecture arch of fp_adder_test_de10_lite is --
     signal frac_out : std_logic_vector (7 downto 0) ; --
     signal led3 , led2 , led1 , led0 : std_logic_vector (7 downto 0) ; --
 
-begin --
-    -- set up the fp adder input signals --
-    sign1 <= '0';
-    exp1 <= "1000";
-    frac1 <= '1' & sw(1) & sw(0) & "10101";     
+begin
+    -----------------------------------------------------------------------
+    -- Formação do primeiro operando.
+    --
+    -- Mantém a mesma organização do circuito original:
+    -- sinal e expoente fixos, com dois bits variáveis na fração.
+    -----------------------------------------------------------------------
 
-    sign2 <= sw (7) ; --
-    exp2 <= btn ; --
-    frac2 <= '1' & sw (6 downto 0) ; --
+    -- set up the fp adder input signals --
+    -- sign1 <= '0';
+    -- exp1 <= "1000";
+    -- frac1 <= '1' & sw(1) & sw(0) & "10101";     
+
+    sign1 <= '0';
+    exp1  <= "1000";
+
+    frac1 <=
+        '1' &
+        SW(1) &
+        SW(0) &
+        "10101";
+
+    -----------------------------------------------------------------------
+    -- Formação do segundo operando.
+    --
+    -- SW(9)          : sinal
+    -- SW(8 downto 5): expoente
+    -- KEY(1), KEY(0): dois bits da fração
+    -- SW(4 downto 0): cinco bits da fração
+    -----------------------------------------------------------------------
+    
+    -- sign2 <= sw (7) ; --
+    -- exp2 <= btn ; --
+    -- frac2 <= '1' & sw (6 downto 0) ; --
+        
+    sign2 <= SW(9);
+
+    exp2 <= SW(8 downto 5);
+
+    frac2 <=
+        '1' &
+        (not KEY(1)) &
+        (not KEY(0)) &
+        SW(4 downto 0);
 
     -- instantiate fp adder --
     fp_add_unit : entity work.fp_adder(arch) --
