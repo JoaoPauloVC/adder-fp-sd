@@ -11,13 +11,13 @@ use ieee.std_logic_1164.all;
 -- Saída:
 --   seg: sete segmentos do display, na ordem:
 --
---        seg(0) = 0
---        seg(1) = 1
---        seg(2) = 2
---        seg(3) = 3
---        seg(4) = 4
---        seg(5) = 5
---        seg(6) = 6
+--        seg(0) = 0 (segmento superior)
+--        seg(1) = 1 (segmento superior direito)
+--        seg(2) = 2 (segmento inferior direito)
+--        seg(3) = 3 (segmento inferior)
+--        seg(4) = 4 (segmento inferior esquerdo)
+--        seg(5) = 5 (segmento superior esquerdo)
+--        seg(6) = 6 (segmento central)
 
 -- Os segmentos da DE10-Lite são ativos em nível baixo:
 

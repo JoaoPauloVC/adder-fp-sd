@@ -38,7 +38,9 @@ architecture arch of fp_adder_test_de10_lite is --
     signal sign_out : std_logic ; --
     signal exp_out : std_logic_vector (3 downto 0) ; --
     signal frac_out : std_logic_vector (7 downto 0) ; --
-    signal led3 , led2 , led1 , led0 : std_logic_vector (7 downto 0) ; --
+    -- Antes era necessário preparar 4 padrões de 8 bits e enviá-los ao multiplexador.
+    -- Na DE10-Lite, os padrões são ligados diretamente às saidas HEX0, HEX1, HEX2, HEX3.
+    -- signal led3 , led2 , led1 , led0 : std_logic_vector (7 downto 0) ; --
 
 begin
     -----------------------------------------------------------------------
@@ -99,28 +101,72 @@ begin
             frac_out => frac_out
         ) ; --
 
+
+    -----------------------------------------------------------------------
+    -- Exibição do expoente no display HEX0.
+    -----------------------------------------------------------------------
+    
     -- instantiate three instances of hex decoders --
     -- exponent --
-    sseg_unit_0 : entity work . hex_to_sseg --
-        port map ( hex => exp_out , dp => '0' , sseg => led0 ) ; --
+    -- sseg_unit_0 : entity work . hex_to_sseg --
+    --     port map ( hex => exp_out , dp => '0' , sseg => led0 ) ; --
+    
+    hex_unit_0 : entity work.hex_to_7seg_de10_lite(arch)
+        port map (
+            hex => exp_out,
+            seg => HEX0
+        );
 
+    -----------------------------------------------------------------------
+    -- Exibição dos quatro bits menos significativos da fração em HEX1.
+    -----------------------------------------------------------------------
+    
     -- 4 LSBs of fraction --
-    sseg_unit_1 : entity work . hex_to_sseg --
-        port map ( hex => frac_out (3 downto 0) , dp => '1' , sseg => led1 ) ; --
+    -- sseg_unit_1 : entity work . hex_to_sseg --
+    --     port map ( hex => frac_out (3 downto 0) , dp => '1' , sseg => led1 ) ; --
+    
+    hex_unit_1 : entity work.hex_to_7seg_de10_lite(arch)
+        port map (
+            hex => frac_out(3 downto 0),
+            seg => HEX1
+        );
 
+    -----------------------------------------------------------------------
+    -- Exibição dos quatro bits mais significativos da fração em HEX2.
+    -----------------------------------------------------------------------
+    
     -- 4 MSBs of fraction --
-    sseg_unit_2 : entity work . hex_to_sseg --
-        port map ( hex => frac_out (7 downto 4) , dp => '0' , sseg => led2 ) ; --
+    -- sseg_unit_2 : entity work . hex_to_sseg --
+    --     port map ( hex => frac_out (7 downto 4) , dp => '0' , sseg => led2 ) ; --
+    
+    hex_unit_2 : entity work.hex_to_7seg_de10_lite(arch)
+        port map (
+            hex => frac_out(7 downto 4),
+            seg => HEX2
+        );
 
+    -----------------------------------------------------------------------
+    -- Exibição do sinal em HEX3.
+    --
+    -- sign_out = 1: acende somente o segmento central 6, formando "-".
+    -- sign_out = 0: apaga todos os segmentos.
+    -----------------------------------------------------------------------
+    
     -- sign --
-    led3 <= "11111110" when sign_out = '1' else -- middle bar --
-        "11111111"; -- blank --
+    -- led3 <= "11111110" when sign_out = '1' else -- middle bar --
+    --     "11111111"; -- blank --
+    
+    HEX3 <=
+        "1111110" when sign_out = '1' else
+        "1111111";
 
+
+    -- Não utilizado pois não é necessária multiplexação
     -- instantiate 7 -seg LED display time - multiplexing module --
-    disp_unit : entity work . disp_mux --
-        port map ( --
-            clk => clk , reset => '0' , --
-            in0 => led0 , in1 => led1 , in2 => led2 , in3 => led3 , --
-            an => an , sseg => sseg --
-        ) ; --
+    -- disp_unit : entity work . disp_mux --
+    --     port map ( --
+    --         clk => clk , reset => '0' , --
+    --         in0 => led0 , in1 => led1 , in2 => led2 , in3 => led3 , --
+    --         an => an , sseg => sseg --
+    --     ) ; --
 end arch ; --

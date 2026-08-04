@@ -110,5 +110,6 @@ begin --
     -- form output --
     sign_out <= signb ; --
     exp_out <= std_logic_vector ( expn ) ; --
-        frac_out <= std_logic_vector ( fracn ) ; --
-    end arch ; --
+    frac_out <= std_logic_vector ( fracn ) ; --
+    
+end arch ; --

@@ -14,7 +14,7 @@ OBS: O arquivo fp_adder_test_original.vhd é o arquivo após ser copiado e limpo
 
 ## Explicação passo a passo
 
-Com o código analisado, iniciamos uma nova etapa, de conversão do código inicial (fp_adder_test_original.vhd, em etapa-03/codigo-inicial) para a fpga DE10-Lite. Ela se deu da seguinte forma.
+Com o código analisado, iniciamos uma nova etapa, de conversão do código inicial (fp_adder_test_original.vhd, em etapa-02/codigo-inicial) para a fpga DE10-Lite. Ela se deu da seguinte forma.
 
 ### Análise da entity
 
@@ -47,8 +47,36 @@ após a operação 'not' (sem isso, o botão solto produz 1 e o botão pressiona
 
 ### Construção do arquivo para display de 7 segmentos
 
-Neste momento, voltamos o olhar para a construção do vhd que "monta" o display de 7 segmentos. No material das aulas, já tinha sido construído um versão do display de sete segmentos (corrigido em aula).
+Neste momento, voltamos o olhar para a construção do vhd que "monta" o display de 7 segmentos. No material das aulas, já havia sido construído um versão do display de sete segmentos (corrigido em aula).
 
 ![Explicação Display de 7 Segmentos](materiais-de-apoio/seven-segment-display.png)
 
-A imagem, retirada do material ministrado em aula, foi utilizada para montarmos o arquivo do display de sete segmentos. Fizemos mudanças para que ele ficasse mais intuitivo visto que, para fins didáticos, o vetor tinha sido declarado em ordem inversa. A construção do código foi auxiliada por IA (Chat GPT modelo GPT-5.6 Sol), e a conversa pode ser visualizada clicando [aqui](https://chatgpt.com/share/6a71382a-0c7c-83e9-bea5-59d8fd0408ca)
+A imagem, retirada do material ministrado em aula, foi utilizada para montarmos o arquivo do display de sete segmentos. Fizemos mudanças para que ele ficasse mais intuitivo visto que, para fins didáticos, o vetor tinha sido declarado em ordem inversa. A construção do código foi auxiliada por IA (Chat GPT modelo GPT-5.6 Thinking), e a conversa pode ser visualizada clicando [aqui](https://chatgpt.com/share/6a71382a-0c7c-83e9-bea5-59d8fd0408ca)
+
+### Adaptação das saídas para os displays da DE10-Lite
+
+No circuito original, os quatro displays compartilhavam o barramento `sseg`. O sinal `an` selecionava qual display estava ativo em cada instante, enquanto o componente `disp_mux` utilizava o clock para alternar rapidamente entre os displays.
+
+Na DE10-Lite, cada display possui sua própria saída, identificada como HEX5, HEX4, HEX3, HEX2, HEX1, HEX0. Destas estamos usando somente HEX3, HEX2, HEX1, HEX0 Dessa forma, não é necessário selecionar e alternar os displays, permitindo a remoção de `clk`, `an`, `sseg` e `disp_mux`.
+
+Para este projeto, os quatro displays utilizados representam as seguintes partes dos operandos:
+
+- HEX0: expoente do resultado;
+- HEX1: quatro bits menos significativos da fração;
+- HEX2: quatro bits mais significativos da fração;
+- HEX3: sinal do resultado.
+
+Os valores de quatro bits apresentados em HEX2, HEX1 e HEX0 passam por instâncias do componente `hex_to_7seg_de10_lite`, que converte cada valor hexadecimal no padrão correspondente dos sete segmentos.
+
+O display HEX3 não precisa de um decodificador hexadecimal, pois ele possui somente dois estados:
+
+- resultado positivo: todos os segmentos apagados;
+- resultado negativo: somente o segmento central, numerado como 6, aceso, formando um traço.
+
+Como os displays da DE10-Lite são ativos em nível baixo, o padrão usado para o sinal negativo é `1111110`, enquanto o display apagado utiliza `1111111`.
+
+A organização visual do resultado é:
+
+HEX3 | HEX2 | HEX1 | HEX0
+
+sinal | fração mais significativa | fração menos significativa | expoente
