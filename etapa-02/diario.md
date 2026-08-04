@@ -44,3 +44,11 @@ Os botões KEY da placa DE10-Lite são tratados como ativos em nível baixo. Des
 após a operação 'not' (sem isso, o botão solto produz 1 e o botão pressionado produz 0).
 
 É importante observar que SW(1) e SW(0) são compartilhados pelos dois operandos: eles alteram dois bits de frac1 e também pertencem aos cinco bits menos significativos de frac2.
+
+### Construção do arquivo para display de 7 segmentos
+
+Neste momento, voltamos o olhar para a construção do vhd que "monta" o display de 7 segmentos. No material das aulas, já tinha sido construído um versão do display de sete segmentos (corrigido em aula).
+
+![Explicação Display de 7 Segmentos](materiais-de-apoio/seven-segment-display.png)
+
+A imagem, retirada do material ministrado em aula, foi utilizada para montarmos o arquivo do display de sete segmentos. Fizemos mudanças para que ele ficasse mais intuitivo visto que, para fins didáticos, o vetor tinha sido declarado em ordem inversa. A construção do código foi auxiliada por IA (Chat GPT modelo GPT-5.6 Sol), e a conversa pode ser visualizada clicando [aqui](https://chatgpt.com/share/6a71382a-0c7c-83e9-bea5-59d8fd0408ca)
