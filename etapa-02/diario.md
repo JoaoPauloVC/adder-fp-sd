@@ -49,7 +49,7 @@ após a operação 'not' (sem isso, o botão solto produz 1 e o botão pressiona
 
 Neste momento, voltamos o olhar para a construção do vhd que "monta" o display de 7 segmentos. No material das aulas, já havia sido construído um versão do display de sete segmentos (corrigido em aula).
 
-![Explicação Display de 7 Segmentos](materiais-de-apoio/seven-segment-display.png)
+![Explicação Display de 7 Segmentos](images/seven-segment-display.png)
 
 A imagem, retirada do material ministrado em aula, foi utilizada para montarmos o arquivo do display de sete segmentos. Fizemos mudanças para que ele ficasse mais intuitivo visto que, para fins didáticos, o vetor tinha sido declarado em ordem inversa. A construção do código foi auxiliada por IA (Chat GPT modelo GPT-5.6 Thinking), e a conversa pode ser visualizada clicando [aqui](https://chatgpt.com/share/6a71382a-0c7c-83e9-bea5-59d8fd0408ca)
 
@@ -80,3 +80,81 @@ A organização visual do resultado é:
 HEX3 | HEX2 | HEX1 | HEX0
 
 sinal | fração mais significativa | fração menos significativa | expoente
+
+## Compilação dos arquivos produzidos
+
+Agora, similarmente à etapa-01, devemos compilar os arquivos utilizando os comandos do ghdl, fazendo o seguinte processo:
+
+Entre na pasta 02-codigo-final dentro da etapa-02 e execute:
+
+    ```bash
+        ghdl -a fp_adder.vhd
+        ghdl -a hex_to_7seg_de10_lite.vhd
+        ghdl -a fp_adder_test_de10_lite.vhd
+        ghdl -e fp_adder_test_de10_lite
+    ```
+
+Vemos que todos os arquivos compilaram sem erros, então agora faremos um arquivo de testbench para ver se, com determinados inputs (Casos de Uso), os resultados esperados se confirmam.
+
+## TestBench
+
+Para o teste bench, buscamos trazer 4 casos de teste abordando  as questões de:
+
+### Alinhamento dos operandos (Caso de Teste 1)
+
+![Alinhamento dos operandos](images/caso-teste-1.jpeg)
+
+
+### Soma com Carry (Caso de Teste 2)
+
+![Soma com Carry out](images/caso-teste-2.jpeg)
+
+
+### Operando 2 negativo e maior em magnitude (valor maior em absoluto)
+
+![Operando 2 negativo e maior magnitude](images/caso-teste-3.jpeg)
+
+### Grande deslocamento na normalização
+
+![Grande deslocamento na normalização](images/caso-teste-4.jpeg)
+
+Nas imagens (e no testebench, que é o arquivo fp_adder_test_de10_lite_testbench.vhd) podemos visualizar o resultado final esperando
+
+## Visualização no GTKWave
+
+Da mesma forma que na etapa 1, agora precisamos avaliar se o testbench produziu os resultados esperados. Para isso, executamos a sequência de comandos
+
+    ```bash
+        ghdl -a fp_adder.vhd
+        ghdl -a hex_to_7seg_de10_lite.vhd
+        ghdl -a fp_adder_test_de10_lite.vhd
+        ghdl -a fp_adder_test_de10_lite_testbench.vhd
+        ghdl -e fp_adder_test_de10_lite_testbench
+
+        ghdl -r fp_adder_test_de10_lite_testbench --vcd=resposta_de10_lite.vcd
+
+        gtkwave resposta_de10_lite.vcd
+    ```
+
+Com o GTKWave aberto, seguimos um procedimento similar ao da etapa 1, selecionando os sinais de interesse, adaptando para exibir em binário e com o zoom para exibir todo o testbench. Os sinais de interesse neste momento são:
+- test_SW (10 switches);
+- test_KEY (2 botões);
+- test_HEX3 (sinal);
+- test_HEX2 (representa, em hexadecimal, os 4 bits mais significativos da fração);
+- test_HEX1 (representa, em hexadecimal, os 4 bits menos significativos da fração) e;
+- test_HEX0 (expoente).
+
+A imagem a seguir exibe os sinais de onda (em binário). Logo abaixo, foram feitas as conversões de binário para para o sistema de sete segmentos dos displays, evidenciando que os valores retornados foram os esperados, para os casos analisados, o circuito adaptado produz os resultados esperados, na simulação.
+
+![Análise do TestBench para a DE10-Lite](images/gtkwave-testbench-evidencia.png)
+
+Embora os padrões apresentados nos displays já mostrem que os resultados finais foram obtidos corretamente, também analisamos os sinais internos do somador (fp_adder.vhd). Relembrando os sinais, temos:
+- sum: apresenta o resultado bruto da operação;
+- leado: indica a quantidade de deslocamentos necessária;
+- sum_norm: apresenta a fração após o deslocamento;
+- expn: expoente normalizado enviado à saída;
+- fracn: fração normalizada enviada à saída.
+
+![Análise Sinais FP Adder](images/analise-sinais-fp-adder.png)
+
+Se compararmos os sinais de sign_out, expn e fracn com as imagens dos Casos de Teste, vemos que sign_out = sign, expn = exp e fracn = result, como esperado, o que traz mais garantia de que o circuito adaptado produz os resultados corretos.

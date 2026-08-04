@@ -39,6 +39,7 @@ begin
     sign2 <= SW(9);
     exp2 <= SW(8 downto 5);
 
+    -- OBS: not KEY pois os botões tem saída invertida (1 quando solto, 0 quando pressionado)
     frac2 <=
         '1' &
         (not KEY(1)) &
