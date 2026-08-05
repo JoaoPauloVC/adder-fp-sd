@@ -7,7 +7,7 @@ Projeto de Somador de Ponto Flutuante em FPGA proposto na disciplina de Sistemas
 
 **Disciplina:** Sistemas Digitais Q2.2026
 
-**Data:** [Data da entrega]
+**Data:** 07/08/2026
 
 ---
 *Etapa 1*
