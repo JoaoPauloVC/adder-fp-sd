@@ -39,19 +39,19 @@ Os valores esperados para os casos de teste evidenciados abaixo são os seguinte
 
 ### Caso de Teste 1 - Alinhamento dos operandos
 
-![Caso 1 na DE10-Lite](images/de10-lite-caso-01.png)
+![Caso 1 na DE10-Lite](images/alinhamento.jpeg)
 
 ### Caso de Teste 2 - Soma com Carry
 
-![Caso 2 na DE10-Lite](images/de10-lite-caso-02.png)
+![Caso 2 na DE10-Lite](images/carryout.jpeg)
 
 ### Caso de Teste 3 - Operando 2 negativo e maior em magnitude (valor maior em absoluto)
 
-![Caso 3 na DE10-Lite](images/de10-lite-caso-03.png)
+![Caso 3 na DE10-Lite](images/negativo.jpeg)
 
 ### Caso de Teste 4 - Grande deslocamento na normalização
 
-![Caso 4 na DE10-Lite](images/de10-lite-caso-04.png)
+![Caso 4 na DE10-Lite](images/deslocamento.jpeg)
 
 
 ## Conclusão da Etapa 03
