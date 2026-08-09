@@ -276,6 +276,9 @@ Dispositivo: 10M50DAF484C7G
 Top-Level Entity: fp_adder_test_de10_lite
 ```
 
+Usondo os assiments definidoes em:
+`etapa-03/arquivos-necessarios/DE10_LITE.qsf`
+
 Os casos planejados para o teste físico são os mesmos descritos anteriormente:
 
 | Caso | `SW` | `KEY` | Esperado | Obtido |
