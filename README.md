@@ -280,20 +280,20 @@ Os casos planejados para o teste físico são os mesmos descritos anteriormente:
 
 | Caso | `SW` | `KEY` | Esperado | Obtido |
 |---|---|---|---|---|
-| alinhamento | `0011100000` | `11` | `d58` | `[PREENCHER]` |
-| carry out | `0100000000` | `11` | `8A9` | `[PREENCHER]` |
-| negativo | `1100000000` | `00` | `-967` | `[PREENCHER]` |
-| deslocamento | `1100010100` | `11` | `801` | `[PREENCHER]` |
+| alinhamento | `0011100000` | `11` | `d58` | `d58` |
+| carry out | `0100000000` | `11` | `8A9` | `8A9` |
+| negativo | `1100000000` | `00` | `-967` | `-967` |
+| deslocamento | `1100010100` | `11` | `801` | `801` |
 
 Abaixo, serão adicionadas as imagens do funcionamento na placa para os quatro casos:
 
-![Caso 1 na DE10-Lite](etapa-03/images/de10-lite-caso-01.png)
+![Caso 1 na DE10-Lite](etapa-03/images/alinhamento.jpeg)
 
-![Caso 2 na DE10-Lite](etapa-03/images/de10-lite-caso-02.png)
+![Caso 2 na DE10-Lite](etapa-03/images/carryout.jpeg)
 
-![Caso 3 na DE10-Lite](etapa-03/images/de10-lite-caso-03.png)
+![Caso 3 na DE10-Lite](etapa-03/images/negativo.jpeg)
 
-![Caso 4 na DE10-Lite](etapa-03/images/de10-lite-caso-04.png)
+![Caso 4 na DE10-Lite](etapa-03/images/deslocamento.jpeg)
 
 # *Etapa 4 (considerando que a Etapa 4 considera toda a documentação em si)*
 
