@@ -298,6 +298,8 @@ Abaixo, serão adicionadas as imagens do funcionamento na placa para os quatro c
 
 ![Caso 4 na DE10-Lite](etapa-03/images/deslocamento.jpeg)
 
+Além disso, segue o link do vídeo com o teste do funcionamento: https://www.youtube.com/watch?v=UZJj8UWU3CQ
+
 # *Etapa 4 (considerando que a Etapa 4 considera toda a documentação em si)*
 
 ## 5. Diário de Bordo de IA 
